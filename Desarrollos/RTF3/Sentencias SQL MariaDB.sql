@@ -217,3 +217,57 @@ CREATE TABLE `periodo_carga_archivo` (
   `fecha_fin` datetime NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+#INSERCIONES DEFAULT
+
+#REGIONES
+INSERT INTO `saetel-db`.region (id, nombre, codigo_region) VALUES(1, 'Amazonia', NULL);
+INSERT INTO `saetel-db`.region (id, nombre, codigo_region) VALUES(2, 'Andina', NULL);
+INSERT INTO `saetel-db`.region (id, nombre, codigo_region) VALUES(3, 'Caribe', NULL);
+INSERT INTO `saetel-db`.region (id, nombre, codigo_region) VALUES(4, 'Insular', NULL);
+INSERT INTO `saetel-db`.region (id, nombre, codigo_region) VALUES(5, 'Orinoquia', NULL);
+INSERT INTO `saetel-db`.region (id, nombre, codigo_region) VALUES(6, 'Pacifico', NULL);
+
+#ALGUNAS CIUDADES
+INSERT INTO `saetel-db`.ciudad (id, nombre, codigo_ciudad) VALUES(1, 'BOGOTA', NULL);
+INSERT INTO `saetel-db`.ciudad (id, nombre, codigo_ciudad) VALUES(2, 'MEDELLIN', NULL);
+INSERT INTO `saetel-db`.ciudad (id, nombre, codigo_ciudad) VALUES(3, 'CALI', NULL);
+INSERT INTO `saetel-db`.ciudad (id, nombre, codigo_ciudad) VALUES(4, 'BARRANQUILLA', NULL);
+INSERT INTO `saetel-db`.ciudad (id, nombre, codigo_ciudad) VALUES(5, 'CARTAGENA', NULL);
+INSERT INTO `saetel-db`.ciudad (id, nombre, codigo_ciudad) VALUES(6, 'SOLEDAD', NULL);
+INSERT INTO `saetel-db`.ciudad (id, nombre, codigo_ciudad) VALUES(7, 'CUCUTA', NULL);
+INSERT INTO `saetel-db`.ciudad (id, nombre, codigo_ciudad) VALUES(8, 'IBAGUE', NULL);
+INSERT INTO `saetel-db`.ciudad (id, nombre, codigo_ciudad) VALUES(9, 'SOACHA', NULL);
+INSERT INTO `saetel-db`.ciudad (id, nombre, codigo_ciudad) VALUES(10, 'BUCARAMANGA', NULL);
+
+INSERT INTO `saetel-db`.ciudades_region (id, id_region, id_ciudad) VALUES(1, 2, 1);
+INSERT INTO `saetel-db`.ciudades_region (id, id_region, id_ciudad) VALUES(2, 2, 2);
+INSERT INTO `saetel-db`.ciudades_region (id, id_region, id_ciudad) VALUES(3, 6, 3);
+INSERT INTO `saetel-db`.ciudades_region (id, id_region, id_ciudad) VALUES(4, 3, 4);
+INSERT INTO `saetel-db`.ciudades_region (id, id_region, id_ciudad) VALUES(5, 3, 5);
+INSERT INTO `saetel-db`.ciudades_region (id, id_region, id_ciudad) VALUES(6, 3, 6);
+INSERT INTO `saetel-db`.ciudades_region (id, id_region, id_ciudad) VALUES(7, 2, 7);
+INSERT INTO `saetel-db`.ciudades_region (id, id_region, id_ciudad) VALUES(8, 2, 8);
+INSERT INTO `saetel-db`.ciudades_region (id, id_region, id_ciudad) VALUES(9, 2, 9);
+INSERT INTO `saetel-db`.ciudades_region (id, id_region, id_ciudad) VALUES(10, 2, 10);
+
+#TIPOS DE DOCUMENTOS
+INSERT INTO `saetel-db`.tipo_documento (id, descripcion) VALUES(1, 'CEDULA DE CIUDADANIA');
+INSERT INTO `saetel-db`.tipo_documento (id, descripcion) VALUES(2, 'TARJETA DE EXTRANJERIA');
+INSERT INTO `saetel-db`.tipo_documento (id, descripcion) VALUES(3, 'CEDULA DE EXTRANJERIA');
+INSERT INTO `saetel-db`.tipo_documento (id, descripcion) VALUES(4, 'NIT');
+
+#ESTRATOS
+INSERT INTO `saetel-db`.estrato (id, descripcion) VALUES(1, 'BAJO-BAJO');
+INSERT INTO `saetel-db`.estrato (id, descripcion) VALUES(2, 'BAJO');
+INSERT INTO `saetel-db`.estrato (id, descripcion) VALUES(3, 'MEDIO-BAJO');
+INSERT INTO `saetel-db`.estrato (id, descripcion) VALUES(4, 'MEDIO');
+INSERT INTO `saetel-db`.estrato (id, descripcion) VALUES(5, 'MEDIO-ALTO');
+INSERT INTO `saetel-db`.estrato (id, descripcion) VALUES(6, 'ALTO');
+
+#USUARIOS
+INSERT INTO `saetel-db`.rol (id, descripcion) VALUES(1, 'ADMINISTRADOR');
+INSERT INTO `saetel-db`.rol (id, descripcion) VALUES(2, 'USUARIO-EMPRESA');
+
+
+
