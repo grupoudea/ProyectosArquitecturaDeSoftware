@@ -9,7 +9,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class HomeController {
 
     @RequestMapping(value="/hello")
-    public String getMensaje(){
+    public String getMensaje1(){
+        return "Hola desde el mundo Spring Boot";
+    }
+
+    @RequestMapping(value="/")
+    public String getMensaje2(){
         return "Hola desde el mundo Spring Boot";
     }
 }
