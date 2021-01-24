@@ -1,15 +1,13 @@
 package co.udea.saetelbackend.facade.empresas.dto;
 
-import co.udea.saetelbackend.repository.empresas.entity.Ciudad;
-import co.udea.saetelbackend.repository.empresas.entity.Region;
 
 public class CiudadesRegionDto {
 
     private Integer id;
     private Integer idCiudad;
-    private Ciudad ciudad;
+    private CiudadDto ciudad;
     private Integer idRegion;
-    private Region region;
+    private RegionDto region;
 
     public Integer getId() {
         return id;
@@ -27,14 +25,6 @@ public class CiudadesRegionDto {
         this.idCiudad = idCiudad;
     }
 
-    public Ciudad getCiudad() {
-        return ciudad;
-    }
-
-    public void setCiudad(Ciudad ciudad) {
-        this.ciudad = ciudad;
-    }
-
     public Integer getIdRegion() {
         return idRegion;
     }
@@ -43,11 +33,19 @@ public class CiudadesRegionDto {
         this.idRegion = idRegion;
     }
 
-    public Region getRegion() {
+    public CiudadDto getCiudad() {
+        return ciudad;
+    }
+
+    public void setCiudad(CiudadDto ciudad) {
+        this.ciudad = ciudad;
+    }
+
+    public RegionDto getRegion() {
         return region;
     }
 
-    public void setRegion(Region region) {
+    public void setRegion(RegionDto region) {
         this.region = region;
     }
 }

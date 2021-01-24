@@ -8,14 +8,14 @@ public class ContratoDto {
     private Integer id;
     private String numeroContrato;
     private Integer idEmpresa;
-    private EmpresaDto empresaDto;
+    private EmpresaDto empresa;
     private Integer idCliente;
-    private ClienteDto clienteDto;
+    private ClienteDto cliente;
     private LocalDate fechaInicio;
     private LocalDate fechaFin;
     private String direccion;
     private Integer idEstrato;
-    private EstratoDto estratoDto;
+    private EstratoDto estrato;
 
     public Integer getId() {
         return id;
@@ -41,29 +41,6 @@ public class ContratoDto {
         this.idEmpresa = idEmpresa;
     }
 
-    public EmpresaDto getEmpresaDto() {
-        return empresaDto;
-    }
-
-    public void setEmpresaDto(EmpresaDto empresaDto) {
-        this.empresaDto = empresaDto;
-    }
-
-    public Integer getIdCliente() {
-        return idCliente;
-    }
-
-    public void setIdCliente(Integer idCliente) {
-        this.idCliente = idCliente;
-    }
-
-    public ClienteDto getClienteDto() {
-        return clienteDto;
-    }
-
-    public void setClienteDto(ClienteDto clienteDto) {
-        this.clienteDto = clienteDto;
-    }
 
     public LocalDate getFechaInicio() {
         return fechaInicio;
@@ -97,11 +74,35 @@ public class ContratoDto {
         this.idEstrato = idEstrato;
     }
 
-    public EstratoDto getEstratoDto() {
-        return estratoDto;
+    public EmpresaDto getEmpresa() {
+        return empresa;
     }
 
-    public void setEstratoDto(EstratoDto estratoDto) {
-        this.estratoDto = estratoDto;
+    public void setEmpresa(EmpresaDto empresa) {
+        this.empresa = empresa;
+    }
+
+    public Integer getIdCliente() {
+        return idCliente;
+    }
+
+    public void setIdCliente(Integer idCliente) {
+        this.idCliente = idCliente;
+    }
+
+    public ClienteDto getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(ClienteDto cliente) {
+        this.cliente = cliente;
+    }
+
+    public EstratoDto getEstrato() {
+        return estrato;
+    }
+
+    public void setEstrato(EstratoDto estrato) {
+        this.estrato = estrato;
     }
 }

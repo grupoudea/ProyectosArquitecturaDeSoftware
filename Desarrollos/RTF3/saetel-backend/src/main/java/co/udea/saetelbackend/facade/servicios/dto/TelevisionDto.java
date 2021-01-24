@@ -4,7 +4,7 @@ public class TelevisionDto {
 
     private Integer id;
     private Integer idServicio;
-    private ServicioDto servicioDto;
+    private ServicioDto servicio;
     private Integer cantidadCanales;
     private String calidad;
     private Integer cantidadDecodificadores;
@@ -25,12 +25,12 @@ public class TelevisionDto {
         this.idServicio = idServicio;
     }
 
-    public ServicioDto getServicioDto() {
-        return servicioDto;
+    public ServicioDto getServicio() {
+        return servicio;
     }
 
-    public void setServicioDto(ServicioDto servicioDto) {
-        this.servicioDto = servicioDto;
+    public void setServicio(ServicioDto servicio) {
+        this.servicio = servicio;
     }
 
     public Integer getCantidadCanales() {

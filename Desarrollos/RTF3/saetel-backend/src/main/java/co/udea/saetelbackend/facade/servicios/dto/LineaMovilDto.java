@@ -4,7 +4,7 @@ public class LineaMovilDto {
 
     private Integer id;
     private Integer idServicio;
-    private ServicioDto servicioDto;
+    private ServicioDto servicio;
     private String tipoPlan;
     private String datosMegas;
     private String mensajesTextos;
@@ -26,12 +26,12 @@ public class LineaMovilDto {
         this.idServicio = idServicio;
     }
 
-    public ServicioDto getServicioDto() {
-        return servicioDto;
+    public ServicioDto getServicio() {
+        return servicio;
     }
 
-    public void setServicioDto(ServicioDto servicioDto) {
-        this.servicioDto = servicioDto;
+    public void setServicio(ServicioDto servicio) {
+        this.servicio = servicio;
     }
 
     public String getTipoPlan() {

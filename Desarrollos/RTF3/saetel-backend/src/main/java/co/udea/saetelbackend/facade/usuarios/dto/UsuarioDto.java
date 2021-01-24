@@ -10,9 +10,9 @@ public class UsuarioDto {
     private String clave;
     private String estado;
     private Integer idRol;
-    private RolDto rolDto;
+    private RolDto rol;
     private Integer idEmpresa;
-    private EmpresaDto empresaDto;
+    private EmpresaDto empresa;
 
     public Integer getId() {
         return id;
@@ -62,13 +62,6 @@ public class UsuarioDto {
         this.idRol = idRol;
     }
 
-    public RolDto getRolDto() {
-        return rolDto;
-    }
-
-    public void setRolDto(RolDto rolDto) {
-        this.rolDto = rolDto;
-    }
 
     public Integer getIdEmpresa() {
         return idEmpresa;
@@ -78,11 +71,19 @@ public class UsuarioDto {
         this.idEmpresa = idEmpresa;
     }
 
-    public EmpresaDto getEmpresaDto() {
-        return empresaDto;
+    public RolDto getRol() {
+        return rol;
     }
 
-    public void setEmpresaDto(EmpresaDto empresaDto) {
-        this.empresaDto = empresaDto;
+    public void setRol(RolDto rol) {
+        this.rol = rol;
+    }
+
+    public EmpresaDto getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(EmpresaDto empresa) {
+        this.empresa = empresa;
     }
 }

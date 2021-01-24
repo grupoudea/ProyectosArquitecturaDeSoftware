@@ -4,7 +4,7 @@ public class ClienteDto {
 
     private Integer id;
     private Integer idTipoDocumento;
-    private TipoDocumentoDto tipoDocumentoDto;
+    private TipoDocumentoDto tipoDocumento;
     private String numeroDocumento;
     private String primerNombre;
     private String segundoNombre;
@@ -31,12 +31,12 @@ public class ClienteDto {
         this.idTipoDocumento = idTipoDocumento;
     }
 
-    public TipoDocumentoDto getTipoDocumentoDto() {
-        return tipoDocumentoDto;
+    public TipoDocumentoDto getTipoDocumento() {
+        return tipoDocumento;
     }
 
-    public void setTipoDocumentoDto(TipoDocumentoDto tipoDocumentoDto) {
-        this.tipoDocumentoDto = tipoDocumentoDto;
+    public void setTipoDocumento(TipoDocumentoDto tipoDocumento) {
+        this.tipoDocumento = tipoDocumento;
     }
 
     public String getNumeroDocumento() {

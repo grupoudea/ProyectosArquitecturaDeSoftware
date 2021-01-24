@@ -1,13 +1,12 @@
 package co.udea.saetelbackend.facade.empresas.dto;
 
-import co.udea.saetelbackend.repository.empresas.entity.Empresa;
 import java.time.LocalDate;
 
 public class InscripcionEmpresaDto {
 
     private Integer id;
     private Integer idEmpresa;
-    private Empresa empresa;
+    private EmpresaDto empresa;
     private LocalDate fecha;
 
     public Integer getId() {
@@ -26,11 +25,11 @@ public class InscripcionEmpresaDto {
         this.idEmpresa = idEmpresa;
     }
 
-    public Empresa getEmpresa() {
+    public EmpresaDto getEmpresa() {
         return empresa;
     }
 
-    public void setEmpresa(Empresa empresa) {
+    public void setEmpresa(EmpresaDto empresa) {
         this.empresa = empresa;
     }
 

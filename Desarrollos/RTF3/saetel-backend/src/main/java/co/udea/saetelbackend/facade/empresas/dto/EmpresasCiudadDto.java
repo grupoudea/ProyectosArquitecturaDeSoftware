@@ -1,15 +1,12 @@
 package co.udea.saetelbackend.facade.empresas.dto;
 
-import co.udea.saetelbackend.repository.empresas.entity.Ciudad;
-import co.udea.saetelbackend.repository.empresas.entity.Empresa;
-
 public class EmpresasCiudadDto {
 
     private Integer id;
     private Integer idEmpresa;
-    private Empresa empresa;
+    private EmpresaDto empresa;
     private Integer idCiudad;
-    private Ciudad ciudad;
+    private CiudadDto ciudad;
     private String direccion;
 
     public Integer getId() {
@@ -28,13 +25,6 @@ public class EmpresasCiudadDto {
         this.idEmpresa = idEmpresa;
     }
 
-    public Empresa getEmpresa() {
-        return empresa;
-    }
-
-    public void setEmpresa(Empresa empresa) {
-        this.empresa = empresa;
-    }
 
     public Integer getIdCiudad() {
         return idCiudad;
@@ -44,19 +34,27 @@ public class EmpresasCiudadDto {
         this.idCiudad = idCiudad;
     }
 
-    public Ciudad getCiudad() {
-        return ciudad;
-    }
-
-    public void setCiudad(Ciudad ciudad) {
-        this.ciudad = ciudad;
-    }
-
     public String getDireccion() {
         return direccion;
     }
 
     public void setDireccion(String direccion) {
         this.direccion = direccion;
+    }
+
+    public EmpresaDto getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(EmpresaDto empresa) {
+        this.empresa = empresa;
+    }
+
+    public CiudadDto getCiudad() {
+        return ciudad;
+    }
+
+    public void setCiudad(CiudadDto ciudad) {
+        this.ciudad = ciudad;
     }
 }
