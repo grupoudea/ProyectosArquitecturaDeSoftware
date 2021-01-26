@@ -1,20 +1,9 @@
-package co.udea.saetelbackend.repository.empresas.entity;
+package co.udea.saetelbackend.facade.empresas.dto;
 
-import javax.persistence.*;
+public class CiudadDto {
 
-@Entity
-@Table(name = "ciudad")
-public class Ciudad {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Integer id;
-
-    @Column(name = "nombre", nullable = false)
     private String nombre;
-
-    @Column(name = "codigo_ciudad")
     private String codigoCiudad;
 
     public Integer getId() {
