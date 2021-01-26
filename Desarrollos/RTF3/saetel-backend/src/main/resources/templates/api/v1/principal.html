@@ -16,12 +16,12 @@
     <meta name="author" content="Oscar Darío Botero Vargas" />
 
     <!-- Custom fonts for this template-->
-    <link href="/fontawesome-free-5.9.0/css/all.min.css" rel="stylesheet" type="text/css" />
+    <link th:href="@{/fontawesome-free-5.9.0/css/all.min.css}" rel="stylesheet" type="text/css" />
 
-    <link href="/DataTables-1.10.20/datatables.min.css" rel="stylesheet" />
+    <link th:href="@{/DataTables-1.10.20/datatables.min.css}" rel="stylesheet" />
 
     <!-- Custom styles for this template-->
-    <link href="/v1/css/sb-admin.min.css" rel="stylesheet" />
+    <link th:href="@{/v1/css/sb-admin.min.css}" rel="stylesheet" />
   </head>
 
   <body id="page-top">
@@ -165,7 +165,7 @@
           </div>
           <div class="modal-footer">
             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancele</button>
-            <a class="btn btn-primary" href="/finalice">Salga</a>
+            <a class="btn btn-primary" th:href="@{/v1/finalice}">Salga</a>
           </div>
         </div>
       </div>
@@ -173,15 +173,15 @@
 
 
     <!-- Bootstrap core JavaScript-->
-    <script src="/jquery-3.4.1.min.js"></script>
-    <script src="/bootstrap-4.3.1/js/bootstrap.bundle.min.js"></script>
+    <script th:src="@{/jquery-3.4.1.min.js}"></script>
+    <script th:src="@{/bootstrap-4.3.1/js/bootstrap.bundle.min.js}"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="/jquery-easing-1.4.1/jquery.easing.min.js"></script>
+    <script th:src="@{/jquery-easing-1.4.1/jquery.easing.min.js}"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="/v1/js/sb-admin.min.js"></script>
-    <script src="/v1/js/od-varios.min.js"></script>
+    <script th:src="@{/v1/js/sb-admin.min.js}"></script>
+    <script th:src="@{/v1/js/od-varios.min.js}"></script>
 
     <script>
       $(document).ready(function() {

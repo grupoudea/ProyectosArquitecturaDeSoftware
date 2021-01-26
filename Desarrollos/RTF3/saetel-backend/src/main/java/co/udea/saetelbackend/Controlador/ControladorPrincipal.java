@@ -1,10 +1,12 @@
 package co.udea.saetelbackend.Controlador;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -16,15 +18,18 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class ControladorPrincipal {
 
+  @Autowired
+  private ServletContext contexto;
+
   @GetMapping(path = {"/v1/principal"})
   public String principal(HttpSession sesión, Model modelo) {
-    String nombreVista = "v1/principal";;
+    String nombreVista = contexto.getContextPath() + "/v1/principal";
 
     try {
       if(sesión.isNew())
-        nombreVista = "v1/ingreso";
+        nombreVista = contexto.getContextPath() + "/v1/ingreso";
     } catch(IllegalStateException e) {
-      nombreVista = "v1/ingreso";
+      nombreVista = contexto.getContextPath() + "/v1/ingreso";
     }
 
     return nombreVista;
@@ -33,6 +38,6 @@ public class ControladorPrincipal {
   @GetMapping(path = {"/v1/ingreso", "/v1/finalice"})
   public String ingreso(HttpSession sesión) {
     sesión.invalidate();
-    return "v1/ingreso";
+    return contexto.getContextPath() + "/v1/ingreso";
   }
 }

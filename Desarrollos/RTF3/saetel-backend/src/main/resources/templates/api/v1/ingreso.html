@@ -17,10 +17,10 @@
     </title>
 
     <!-- Bootstrap core CSS -->
-    <link href="/bootstrap-4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link th:href="@{/bootstrap-4.3.1/css/bootstrap.min.css}" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="/v1/css/signin.css" rel="stylesheet">
+    <link th:href="@{/v1/css/signin.css}" rel="stylesheet">
   </head>
 
   <body class="text-center">
@@ -75,19 +75,15 @@
       </button>
     </div>
 
-    <script src="/jquery-3.4.1.min.js"></script>
-    <script src="/v1/js/jquery.md5.min.js"></script>
+    <script th:src="@{/jquery-3.4.1.min.js}"></script>
+    <script th:src="@{/v1/js/jquery.md5.min.js}"></script>
 
-    <script>
+    <script th:inline="javascript">
     $(document).ready(function() {
       $("#envie").click(function(event) {
-console.log("Enviare:")
-console.log("nombre: " + $("#nombreUsuario").val())
-console.log("clave: " + $("#claveUsuario").val())
-console.log("clave: " + $.md5($("#claveUsuario").val()))
         jQuery.ajax({
           "method":"GET",
-          "url":"/v1/usuario/credenciales_son_validas",
+          "url": /*[[@{/v1/usuario/credenciales_son_validas}]]*/,
           "data": {
             "nombre": $("#nombreUsuario").val(),
             "clave" : $.md5($("#claveUsuario").val())
@@ -108,7 +104,7 @@ console.log("clave: " + $.md5($("#claveUsuario").val()))
               $("#mensaje_error").html("El usuario no está registrado.<br>... o la clave no corresponde a la dada.");
               $("#mensaje_error").show();
             } else
-              window.location.href = "/v1/principal/";
+              window.location.href = /*[[@{/v1/principal/}]]*/;
           }
         });
       });

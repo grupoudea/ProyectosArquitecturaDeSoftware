@@ -37,7 +37,7 @@ public class ControladorArchivos {
   // @GetMapping() equivale a @RequestMapping(method = RequestMethod.GET).
   @GetMapping()
   public String páginaSubaArchivo() {
-    return "pagina_suba_archivo";
+    return "/v1/pagina_suba_archivo";
   }
 
   // @PutMapping() equivale a @RequestMapping(method = RequestMethod.PUT).
