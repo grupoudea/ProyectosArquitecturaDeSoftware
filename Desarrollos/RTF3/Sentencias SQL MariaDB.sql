@@ -328,6 +328,9 @@ INSERT INTO `saetel-db`.inscripcion_empresa (id, id_empresa, fecha) VALUES(3, 3,
 INSERT INTO `saetel-db`.inscripcion_empresa (id, id_empresa, fecha) VALUES(4, 4, '2021-01-23');
 INSERT INTO `saetel-db`.inscripcion_empresa (id, id_empresa, fecha) VALUES(5, 5, '2021-01-23');
 
+-- Empresas
+INSERT INTO `saetel-db`.`empresa`(id, nit, nombre) VALUES(1, "123-4567890", "Prestadora de Servicios de Telecomunicaciones # 1");
+
 -- Usuarios
 INSERT INTO `saetel-db`.`usuario`(id, correo, usuario, clave, estado, id_rol, id_empresa)
     VALUES(1, 'nombre@dominio', 'nombre', MD5('clave'), 'ACTIVO', 2, 1);
