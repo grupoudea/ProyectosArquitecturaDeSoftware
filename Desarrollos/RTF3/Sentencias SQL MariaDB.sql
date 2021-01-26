@@ -79,7 +79,7 @@ CREATE TABLE `cliente` (
   `celular_principal` varchar(100) DEFAULT NULL,
   `celular_secundario` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `cliente_fk` (`id_tipo_documento`),
+  UNIQUE KEY `cliente_un` (`id_tipo_documento`,`numero_documento`),
   CONSTRAINT `cliente_fk` FOREIGN KEY (`id_tipo_documento`) REFERENCES `tipo_documento` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -302,6 +302,31 @@ INSERT INTO `saetel-db`.estrato (id, descripcion) VALUES(6, 'ALTO');
 -- Roles
 INSERT INTO `saetel-db`.rol (id, descripcion) VALUES(1, 'ADMINISTRADOR');
 INSERT INTO `saetel-db`.rol (id, descripcion) VALUES(2, 'USUARIO-EMPRESA');
+
+#ALGUNAS EMPRESAS DE TELECOMUNICACIONES
+INSERT INTO `saetel-db`.empresa (id, nit, nombre) VALUES(1, '800.153.993-7', 'CLARO');
+INSERT INTO `saetel-db`.empresa (id, nit, nombre) VALUES(2, '9000092385-9', 'TIGO');
+INSERT INTO `saetel-db`.empresa (id, nit, nombre) VALUES(3, '830. 122.566-1', 'MOVISTAR');
+INSERT INTO `saetel-db`.empresa (id, nit, nombre) VALUES(4, '830053800', 'TELMEX');
+INSERT INTO `saetel-db`.empresa (id, nit, nombre) VALUES(5, '899.999.115-8', 'ETB');
+INSERT INTO `saetel-db`.empresa (id, nit, nombre) VALUES(6, '805.006.014-0', 'DIRECTV');
+INSERT INTO `saetel-db`.empresa (id, nit, nombre) VALUES(7, '8301403210', 'HUAWEI');
+INSERT INTO `saetel-db`.empresa (id, nit, nombre) VALUES(8, '830513238', 'CONEXRED');
+INSERT INTO `saetel-db`.empresa (id, nit, nombre) VALUES(9, '9003238537', 'TELEPERFORMANCE');
+
+INSERT INTO `saetel-db`.empresas_ciudad (id, id_empresa, id_ciudad, direccion) VALUES(1, 1, 1, 'CALLE 50');
+INSERT INTO `saetel-db`.empresas_ciudad (id, id_empresa, id_ciudad, direccion) VALUES(2, 1, 2, 'CARRERA 140');
+INSERT INTO `saetel-db`.empresas_ciudad (id, id_empresa, id_ciudad, direccion) VALUES(3, 2, 1, 'CALLE 40');
+INSERT INTO `saetel-db`.empresas_ciudad (id, id_empresa, id_ciudad, direccion) VALUES(4, 2, 3, 'CARRERA 100');
+INSERT INTO `saetel-db`.empresas_ciudad (id, id_empresa, id_ciudad, direccion) VALUES(5, 3, 4, 'CARRERA 98');
+INSERT INTO `saetel-db`.empresas_ciudad (id, id_empresa, id_ciudad, direccion) VALUES(6, 4, 5, 'CALLE 45 ');
+INSERT INTO `saetel-db`.empresas_ciudad (id, id_empresa, id_ciudad, direccion) VALUES(7, 5, 6, 'CALLE 45');
+
+INSERT INTO `saetel-db`.inscripcion_empresa (id, id_empresa, fecha) VALUES(1, 1, '2021-01-23');
+INSERT INTO `saetel-db`.inscripcion_empresa (id, id_empresa, fecha) VALUES(2, 2, '2021-01-23');
+INSERT INTO `saetel-db`.inscripcion_empresa (id, id_empresa, fecha) VALUES(3, 3, '2021-01-23');
+INSERT INTO `saetel-db`.inscripcion_empresa (id, id_empresa, fecha) VALUES(4, 4, '2021-01-23');
+INSERT INTO `saetel-db`.inscripcion_empresa (id, id_empresa, fecha) VALUES(5, 5, '2021-01-23');
 
 -- Empresas
 INSERT INTO `saetel-db`.`empresa`(id, nit, nombre) VALUES(1, "123-4567890", "Prestadora de Servicios de Telecomunicaciones # 1");

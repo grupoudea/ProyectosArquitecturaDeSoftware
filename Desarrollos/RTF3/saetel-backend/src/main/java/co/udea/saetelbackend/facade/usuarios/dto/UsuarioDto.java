@@ -1,43 +1,18 @@
-package co.udea.saetelbackend.repository.usuarios.entity;
+package co.udea.saetelbackend.facade.usuarios.dto;
 
-import co.udea.saetelbackend.repository.empresas.entity.Empresa;
+import co.udea.saetelbackend.facade.empresas.dto.EmpresaDto;
 
-import javax.persistence.*;
+public class UsuarioDto {
 
-@Entity
-@Table(name = "usuario")
-public class Usuario {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Integer id;
-
-    @Column(name = "correo", nullable = false)
     private String correo;
-
-    @Column(name = "usuario", nullable = false)
     private String usuario;
-
-    @Column(name = "clave", nullable = false)
     private String clave;
-
-    @Column(name = "estado", nullable = false)
     private String estado;
-
-    @Column(name = "id_rol", nullable = false)
     private Integer idRol;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="id_rol", insertable = false, updatable = false, nullable = false)
-    private Rol rol;
-
-    @Column(name = "id_empresa")
+    private RolDto rol;
     private Integer idEmpresa;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="id_empresa", insertable = false, updatable = false)
-    private Empresa empresa;
+    private EmpresaDto empresa;
 
     public Integer getId() {
         return id;
@@ -87,13 +62,6 @@ public class Usuario {
         this.idRol = idRol;
     }
 
-    public Rol getRol() {
-        return rol;
-    }
-
-    public void setRol(Rol rol) {
-        this.rol = rol;
-    }
 
     public Integer getIdEmpresa() {
         return idEmpresa;
@@ -103,11 +71,19 @@ public class Usuario {
         this.idEmpresa = idEmpresa;
     }
 
-    public Empresa getEmpresa() {
+    public RolDto getRol() {
+        return rol;
+    }
+
+    public void setRol(RolDto rol) {
+        this.rol = rol;
+    }
+
+    public EmpresaDto getEmpresa() {
         return empresa;
     }
 
-    public void setEmpresa(Empresa empresa) {
+    public void setEmpresa(EmpresaDto empresa) {
         this.empresa = empresa;
     }
 }
