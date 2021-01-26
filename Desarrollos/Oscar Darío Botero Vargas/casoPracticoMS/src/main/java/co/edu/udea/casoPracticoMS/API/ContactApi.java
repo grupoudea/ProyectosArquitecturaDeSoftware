@@ -24,4 +24,15 @@ public class ContactApi {
       "oscar.botero@udea.edu.co"
     ).toString();
   }
+
+  @GetMapping(path = "/contacto")
+  public ContactoDTO contacto() {
+    return new ContactoDTO(
+      38L,
+      "Oscar Darío",
+      "Botero Vargas",
+      "+57 300 399 37 53",
+      "oscar.botero@udea.edu.co"
+    );
+  }
 }
