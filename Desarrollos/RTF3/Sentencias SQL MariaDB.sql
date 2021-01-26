@@ -79,7 +79,7 @@ CREATE TABLE `cliente` (
   `celular_principal` varchar(100) DEFAULT NULL,
   `celular_secundario` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `cliente_fk` (`id_tipo_documento`),
+  UNIQUE KEY `cliente_un` (`id_tipo_documento`,`numero_documento`),
   CONSTRAINT `cliente_fk` FOREIGN KEY (`id_tipo_documento`) REFERENCES `tipo_documento` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
