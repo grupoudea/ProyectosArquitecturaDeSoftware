@@ -20,6 +20,7 @@ import { AdminComponent } from './admin/admin.component';
 import { ListaEmpresasComponent } from './admin/lista-empresas/lista-empresas.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HomeComponent } from './admin/home/home.component';
+import { EmpresasComponent } from './empresas/empresas.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -30,7 +31,8 @@ export function createTranslateLoader(http: HttpClient) {
     AppComponent,
     AdminComponent,
     ListaEmpresasComponent,
-    HomeComponent
+    HomeComponent,
+    EmpresasComponent
   ],
   imports: [
     BrowserModule,
