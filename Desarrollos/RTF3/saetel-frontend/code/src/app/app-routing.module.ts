@@ -5,10 +5,10 @@ import { HomeComponent } from './admin/home/home.component';
 import { ListaEmpresasComponent } from './admin/lista-empresas/lista-empresas.component';
 
 const routes: Routes = [
-  {path: '', redirectTo: '/admin', pathMatch: 'full'},
+  {path: 'admin', redirectTo: '/admin', pathMatch: 'full'},
   {path: 'admin', component: AdminComponent},
-  {path: 'home', component: HomeComponent},
-  {path: 'lista-empresas', component: ListaEmpresasComponent},
+  {path: 'admin/home', component: HomeComponent},
+  {path: 'admin/lista-empresas', component: ListaEmpresasComponent},
 ];
 
 @NgModule({

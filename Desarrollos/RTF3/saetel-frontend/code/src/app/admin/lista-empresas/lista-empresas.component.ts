@@ -21,8 +21,8 @@ export class ListaEmpresasComponent implements OnInit {
 
   ngOnInit(): void {
     this.items = [
-      {label: 'Home', icon: 'pi pi-fw pi-home', routerLink: ['/home']},
-      {label: 'Lista de empresas', icon: 'pi pi-fw pi-list', routerLink: ['/lista-empresas']},
+      {label: 'Home', icon: 'pi pi-fw pi-home', routerLink: ['../home']},
+      {label: 'Lista de empresas', icon: 'pi pi-fw pi-list', routerLink: ['../lista-empresas']},
     ];
     this.activeItem = this.items[0];
     this.getEmpresasInscritas();
