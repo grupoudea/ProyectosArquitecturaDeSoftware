@@ -1,0 +1,19 @@
+<p-tabMenu [model]="items"></p-tabMenu>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <p-chart type="bar" [data]="data"></p-chart>
+        </div>
+        <div class="col">
+            <p-chart type="doughnut" [data]="data2"></p-chart>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <p-chart type="line" [data]="data3"></p-chart>
+        </div>
+        <div class="col">
+            <p-chart type="polarArea" [data]="data4"></p-chart>
+        </div>
+    </div>    
+</div>

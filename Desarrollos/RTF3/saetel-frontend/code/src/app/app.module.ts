@@ -14,10 +14,12 @@ import {TabMenuModule} from 'primeng/tabmenu';
 import {TableModule} from 'primeng/table';
 import {FormsModule} from '@angular/forms';
 import {TabViewModule} from 'primeng/tabview';
+import {ChartModule} from 'primeng/chart';
 
 import { AdminComponent } from './admin/admin.component';
 import { ListaEmpresasComponent } from './admin/lista-empresas/lista-empresas.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HomeComponent } from './admin/home/home.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -27,7 +29,8 @@ export function createTranslateLoader(http: HttpClient) {
   declarations: [
     AppComponent,
     AdminComponent,
-    ListaEmpresasComponent
+    ListaEmpresasComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +49,8 @@ export function createTranslateLoader(http: HttpClient) {
     TableModule,
     FormsModule,
     NgbModule,
-    TabViewModule
+    TabViewModule,
+    ChartModule
   ],
   providers: [],
   bootstrap: [AppComponent]
