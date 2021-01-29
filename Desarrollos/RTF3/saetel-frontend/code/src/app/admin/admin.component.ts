@@ -16,10 +16,7 @@ export class AdminComponent implements OnInit {
   ngOnInit(): void {
     this.items = [
       {label: 'Home', icon: 'pi pi-fw pi-home'},
-      {label: 'Lista de empresas', icon: 'pi pi-fw pi-calendar', routerLink: ['/lista-empresas']},
-      {label: 'Edit', icon: 'pi pi-fw pi-pencil'},
-      {label: 'Documentation', icon: 'pi pi-fw pi-file'},
-      {label: 'Settings', icon: 'pi pi-fw pi-cog'}
+      {label: 'Lista de empresas', icon: 'pi pi-fw pi-list', routerLink: ['/lista-empresas']},
     ];
     this.activeItem = this.items[0];
   }

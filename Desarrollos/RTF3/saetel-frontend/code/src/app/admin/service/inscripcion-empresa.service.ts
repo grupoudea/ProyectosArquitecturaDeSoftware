@@ -19,4 +19,8 @@ export class InscripcionEmpresaService {
     return this.httpClient.get<any>(`${urlBase}/inscripcion-empresa/get-inscritas`, httpOptions);
   }
 
+  getEmpresasNoInscritas(): Observable<any> {
+    return this.httpClient.get<any>(`${urlBase}/inscripcion-empresa/get-no-inscritas`, httpOptions);
+  }
+
 }

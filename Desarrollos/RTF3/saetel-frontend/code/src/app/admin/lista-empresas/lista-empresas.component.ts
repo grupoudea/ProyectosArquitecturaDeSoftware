@@ -13,6 +13,7 @@ export class ListaEmpresasComponent implements OnInit {
   public items: MenuItem[];
   public activeItem: MenuItem;
   public empresasInscritas = new InscripcionEmpresaDto();
+  public empresasNoInscritas = new InscripcionEmpresaDto();
 
   constructor(
     private readonly inscripcionService: InscripcionEmpresaService
@@ -21,13 +22,11 @@ export class ListaEmpresasComponent implements OnInit {
   ngOnInit(): void {
     this.items = [
       {label: 'Home', icon: 'pi pi-fw pi-home'},
-      {label: 'Lista de empresas', icon: 'pi pi-fw pi-calendar', routerLink: ['/lista-empresas']},
-      {label: 'Edit', icon: 'pi pi-fw pi-pencil'},
-      {label: 'Documentation', icon: 'pi pi-fw pi-file'},
-      {label: 'Settings', icon: 'pi pi-fw pi-cog'}
+      {label: 'Lista de empresas', icon: 'pi pi-fw pi-list', routerLink: ['/lista-empresas']},
     ];
     this.activeItem = this.items[0];
-    this.getEmpresasInscritas()
+    this.getEmpresasInscritas();
+    this.getEmpresasNoInscritas();
   }
 
   getEmpresasInscritas() {
@@ -36,6 +35,19 @@ export class ListaEmpresasComponent implements OnInit {
         if (data.body) {
           this.empresasInscritas = data.body;
           console.log(this.empresasInscritas);
+          
+        }
+      }, error => {
+        console.log('Error'.concat(error));
+      });
+  }
+
+  getEmpresasNoInscritas() {
+    this.inscripcionService.getEmpresasNoInscritas().subscribe(
+      data => {
+        if (data.body) {
+          this.empresasNoInscritas = data.body;
+          console.log(this.empresasNoInscritas);
           
         }
       }, error => {
