@@ -21,6 +21,7 @@ import { ListaEmpresasComponent } from './admin/lista-empresas/lista-empresas.co
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HomeComponent } from './admin/home/home.component';
 import { EmpresasComponent } from './empresas/empresas.component';
+import { ImportacionArchivoComponent } from './empresas/importacion-archivo/importacion-archivo.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -32,7 +33,8 @@ export function createTranslateLoader(http: HttpClient) {
     AdminComponent,
     ListaEmpresasComponent,
     HomeComponent,
-    EmpresasComponent
+    EmpresasComponent,
+    ImportacionArchivoComponent
   ],
   imports: [
     BrowserModule,
