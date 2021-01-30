@@ -1,0 +1,43 @@
+<p-tabMenu [model]="items"></p-tabMenu>
+<br><br>
+<div class="container">
+    <p-tabView>
+        <p-tabPanel header="Empresas inscritas">        
+            <p-table [value]="empresasInscritas">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>NIT</th>
+                        <th>Nombre empresa</th>
+                        <th>Fecha inscripción</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-inscripcion>
+                    <tr>
+                        <td>{{inscripcion.empresa.nit}}</td>
+                        <td>{{inscripcion.empresa.nombre}}</td>
+                        <td>{{inscripcion.fecha}}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-tabPanel>
+        <p-tabPanel header="Empresas no inscritas">
+            <p-table [value]="empresasNoInscritas">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>NIT</th>
+                        <th>Nombre empresa</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-inscripcion>
+                    <tr>
+                        <td>{{inscripcion.nit}}</td>
+                        <td>{{inscripcion.nombre}}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-tabPanel>
+    </p-tabView>
+</div>
+
+
+
