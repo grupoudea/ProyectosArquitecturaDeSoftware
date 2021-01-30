@@ -2,6 +2,7 @@ package co.udea.saetelbackend.controller.clientes;
 
 import co.udea.saetelbackend.facade.clientes.ClienteFacade;
 import co.udea.saetelbackend.facade.clientes.dto.ClienteDto;
+import co.udea.saetelbackend.facade.clientes.dto.TipoDocumentoDto;
 import co.udea.saetelbackend.util.handler.StandardResponse;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -62,6 +63,20 @@ public class ClienteController {
         return ResponseEntity.ok(new StandardResponse<>(
                 StandardResponse.StatusStandardResponse.OK,
                 clienteDtoList));
+    }
+
+    @GetMapping("/get-tipos-documentos")
+    @ApiOperation(value = "Obtiene todos los tipos de documentos", response = List.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La petición fue procesada con éxito"),
+            @ApiResponse(code = 400, message = "La petición es inválida"),
+            @ApiResponse(code = 500, message = "Error del servidor al procesar la respuesta"),
+    })
+    public ResponseEntity<StandardResponse<List<TipoDocumentoDto>>> findAll(){
+        List<TipoDocumentoDto> tipoDocumentoDtos = clienteFacade.getTiposDocumentos();
+        return ResponseEntity.ok(new StandardResponse<>(
+                StandardResponse.StatusStandardResponse.OK,
+                tipoDocumentoDtos));
     }
 
 }
