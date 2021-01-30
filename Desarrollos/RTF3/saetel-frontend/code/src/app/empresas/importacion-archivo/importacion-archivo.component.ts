@@ -44,7 +44,15 @@ export class ImportacionArchivoComponent implements OnInit {
 
   }
 
-  descargarPlantilla(){}
+  descargarPlantilla() {
+    const nombreArchivo = "PLANTILLA_CLIENTES.xlsx"
+    const rutaArchivo = "assets/PLANTILLA_CLIENTES.xlsx"
+    const linkDescarga = document.createElement('a');
+    linkDescarga.href = rutaArchivo
+    linkDescarga.setAttribute('download', nombreArchivo)
+    document.body.appendChild(linkDescarga)
+    linkDescarga.click()
+  }
 
   guardarClientes(clientes: ClienteDto[]) {
     this.clienteService.crearClientes(clientes).subscribe(
