@@ -1,12 +1,15 @@
 package co.udea.saetelbackend.facade.clientes;
 
 import co.udea.saetelbackend.facade.clientes.dto.ClienteDto;
-import co.udea.saetelbackend.facade.clientes.dto.ContratoDto;
-import co.udea.saetelbackend.facade.clientes.dto.CrearClienteDto;
+import co.udea.saetelbackend.facade.clientes.dto.EstratoDto;
+import co.udea.saetelbackend.facade.clientes.dto.TipoDocumentoDto;
 import co.udea.saetelbackend.facade.mapper.ClienteMapper;
-import co.udea.saetelbackend.facade.mapper.ContratoMapper;
+import co.udea.saetelbackend.facade.mapper.EstratoMapper;
+import co.udea.saetelbackend.facade.mapper.TipoDocumentoMapper;
+import co.udea.saetelbackend.repository.clientes.entity.Cliente;
 import co.udea.saetelbackend.services.clientes.ClienteService;
-import co.udea.saetelbackend.services.clientes.ContratoService;
+import co.udea.saetelbackend.services.clientes.EstratoService;
+import co.udea.saetelbackend.services.clientes.TipoDocumentoService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,28 +22,46 @@ public class ClienteFacade {
 
     private final ClienteMapper mapper;
     private final ClienteService service;
-    private final ContratoMapper contratoMapper;
-    private final ContratoService contratoService;
+    private final TipoDocumentoService tipoDocumentoService;
+    private final TipoDocumentoMapper tipoDocumentoMapper;
+    private final EstratoService estratoService;
+    private final EstratoMapper estratoMapper;
 
-    public ClienteFacade(ClienteMapper mapper, ClienteService service, ContratoMapper contratoMapper, ContratoService contratoService) {
+    public ClienteFacade(ClienteMapper mapper, ClienteService service,
+                         TipoDocumentoService tipoDocumentoService, TipoDocumentoMapper tipoDocumentoMapper,
+                         EstratoService estratoService, EstratoMapper estratoMapper) {
         this.mapper = mapper;
         this.service = service;
-        this.contratoMapper = contratoMapper;
-        this.contratoService = contratoService;
+        this.tipoDocumentoService = tipoDocumentoService;
+        this.tipoDocumentoMapper = tipoDocumentoMapper;
+        this.estratoService = estratoService;
+        this.estratoMapper = estratoMapper;
     }
 
     @Transactional
-    public List<ClienteDto> crearClientes(List<CrearClienteDto> crearClienteDtos){
+    public List<ClienteDto> crearClientes(List<ClienteDto> clienteDtos){
         List<ClienteDto> clientesCreados = new ArrayList<>();
-        for (CrearClienteDto crearClienteDto : crearClienteDtos) {
-            ClienteDto clienteCreado = mapper.toDto(service.create(mapper.toEntity(crearClienteDto.getCliente())));
-            for (ContratoDto contratoDto : crearClienteDto.getContratoDtos()) {
-                contratoDto.setIdCliente(clienteCreado.getId());
-                contratoService.create(contratoMapper.toEntity(contratoDto));
-            }
+        for (ClienteDto clienteDto : clienteDtos) {
+            ClienteDto clienteCreado = mapper.toDto(service.create(mapper.toEntity(clienteDto)));
             clientesCreados.add(clienteCreado);
         }
         return clientesCreados;
+    }
+
+    public ClienteDto getCliente(Integer id){
+        return mapper.toDto(service.getCliente(id));
+    }
+
+    public List<ClienteDto> getClientes(Integer idEmpresa){
+        return mapper.toDto(service.getClientes(idEmpresa));
+    }
+
+    public List<TipoDocumentoDto> getTiposDocumentos(){
+        return tipoDocumentoMapper.toDto(tipoDocumentoService.getTiposDocumentos());
+    }
+
+    public List<EstratoDto> getEstratos(){
+        return estratoMapper.toDto(estratoService.getEstratos());
     }
 
 }
