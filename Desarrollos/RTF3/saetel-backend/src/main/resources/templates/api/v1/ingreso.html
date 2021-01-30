@@ -79,36 +79,36 @@
     <script th:src="@{/v1/js/jquery.md5.min.js}"></script>
 
     <script th:inline="javascript">
-    $(document).ready(function() {
-      $("#envie").click(function(event) {
-        jQuery.ajax({
-          "method":"GET",
-          "url": /*[[@{/v1/usuario/credenciales_son_validas}]]*/,
-          "data": {
-            "nombre": $("#nombreUsuario").val(),
-            "clave" : $.md5($("#claveUsuario").val())
-          },
-          error:function(jqXHR, textStatus, errorThrown) {
-            if(jqXHR.hasOwnProperty("responseJSON")) {
-              if(jqXHR.responseJSON.hasOwnProperty("message"))
-                $("#mensaje_error").html("Hubo un error al intentar enviar los datos.<br/>El mensaje del error es:<br/>" + jqXHR.responseJSON.message);
-              else
+      $(document).ready(function() {
+        $("#envie").click(function(event) {
+          jQuery.ajax({
+            "method":"GET",
+            "url": /*[[@{/v1/usuario/credenciales_son_validas}]]*/,
+            "data": {
+              "nombre": $("#nombreUsuario").val(),
+              "clave" : $.md5($("#claveUsuario").val())
+            },
+            error:function(jqXHR, textStatus, errorThrown) {
+              if(jqXHR.hasOwnProperty("responseJSON")) {
+                if(jqXHR.responseJSON.hasOwnProperty("message"))
+                  $("#mensaje_error").html("Hubo un error al intentar enviar los datos.<br/>El mensaje del error es:<br/>" + jqXHR.responseJSON.message);
+                else
+                  $("#mensaje_error").html("Hubo un error al intentar enviar los datos.");
+              } else
                 $("#mensaje_error").html("Hubo un error al intentar enviar los datos.");
-            } else
-              $("#mensaje_error").html("Hubo un error al intentar enviar los datos.");
 
-            $("#mensaje_error").show();
-          },
-          success:function(data, textStatus, jqXHR) {
-            if(data == false) {
-              $("#mensaje_error").html("El usuario no está registrado.<br>... o la clave no corresponde a la dada.");
               $("#mensaje_error").show();
-            } else
-              window.location.href = /*[[@{/v1/principal/}]]*/;
-          }
+            },
+            success:function(data, textStatus, jqXHR) {
+              if(data == false) {
+                $("#mensaje_error").html("El usuario no está registrado.<br>... o la clave no corresponde a la dada.");
+                $("#mensaje_error").show();
+              } else
+                window.location.href = /*[[@{/v1/principal/}]]*/;
+            }
+          });
         });
       });
-    });
     </script>
   </body>
 </html>

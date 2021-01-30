@@ -19,24 +19,29 @@ import java.nio.file.Paths;
  */
 @Component
 public class DominioArchivo {
-  public static final Path UBICACIÓN_ALMACENAMIENTO = Paths.get("almacenamiento");
+  public static final Path UBICACIÓN_ALMACENAMIENTO = Paths.get("almacenamiento").toAbsolutePath();
 
-  public enum TipoArchivo {
+  public enum TipoDeArchivo {
     CLIENTE,
     CONTRATO,
     SERVICIO_CONTRATADO
   }
 
-  public enum FormatoArchivo {
+  public enum FormatoDeArchivo {
     CSV,
     JSON
   }
 
-  public void proceseArchivo(
-    Path nombreCompletoNuevoArchivo,
-    TipoArchivo tipoDeArchivo,
-    FormatoArchivo formatoArchivo
-  ) {
+  public enum ResultadoDelProcesamiento {
+    ÉXITO,
+    ERROR
+  }
 
+  public ResultadoDelProcesamiento proceseArchivo(
+    Path nombreCompletoNuevoArchivo,
+    TipoDeArchivo tipoDeArchivo,
+    FormatoDeArchivo formatoArchivo
+  ) {
+    return ResultadoDelProcesamiento.ÉXITO;
   }
 }

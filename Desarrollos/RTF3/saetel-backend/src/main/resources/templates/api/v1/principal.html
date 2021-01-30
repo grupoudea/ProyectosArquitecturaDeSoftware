@@ -76,47 +76,83 @@
     </nav>
 
     <div id="wrapper">
-
-      <!-- Sidebar -->
-      <ul class="sidebar navbar-nav">
-        <li class="nav-item active">
-          <a class="nav-link" href="/v1/principal">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Panel de Control</span>
-          </a>
-        </li>
-
-        <li class="nav-item" th:each="vistaHTML : ${vistasHTML}">
-          <a class="nav-link item-menu" th:href="${vistaHTML.url}">
-            <i class="fas fa-fw" th:attrappend="class=((${vistaHTML.nombreIcono} != null) ? | ${vistaHTML.nombreIcono}|)"></i>
-            <span
-              th:text="${vistaHTML.nombre}"
-              data-toggle="tooltip"
-              data-placement="right"
-              th:title="${vistaHTML.descripcion}"
-            >
-            </span>
-          </a>
-        </li>
-      </ul>
-
       <div id="content-wrapper">
         <div class="container-fluid">
 
-          <!-- Breadcrumbs -->
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item">
-              <a href="#">Hilo de Ariadna</a>
-            </li>
-            <li
-              class="breadcrumb-item active"
-              th:text="${nombreVista}"
-            >
-              Nada
-            </li>
-          </ol>
-
           <div id="contenedor_principal">
+            <form
+              method="POST"
+              enctype="multipart/form-data"
+              th:action="@{/v1/archivo/suba_archivo}"
+              id = "formulario"
+              name = "formulario"
+            >
+              <div class="custom-file mb-3">
+                <input
+                  type="file"
+                  class="custom-file-input"
+                  id="archivoParaEnviar"
+                  name="archivoParaEnviar"
+                />
+
+                <label
+                  id="rotuloArchivoParaEnviar"
+                  name="rotuloArchivoParaEnviar"
+                  class="custom-file-label"
+                  for="archivoParaEnviar"
+                >
+                  Elija el archivo...
+                </label>
+
+                <select class="form-select" id="formatoDeArchivo" name="formatoDeArchivo">
+                  <option selected>Formato del archivo</option>
+
+                  <option
+                    th:each="formatoDeArchivo : ${T(co.udea.saetelbackend.Dominio.DominioArchivo.FormatoDeArchivo).values()}"
+                    th:value="${formatoDeArchivo}" th:text="${formatoDeArchivo}">
+                  </option>
+                </select>
+
+                <select class="form-select" id="tipoDeArchivo" name="tipoDeArchivo">
+                  <option selected>Tipo de información en el archivo</option>
+
+                  <option
+                    th:each="tipoDeArchivo : ${T(co.udea.saetelbackend.Dominio.DominioArchivo.TipoDeArchivo).values()}"
+                    th:value="${tipoDeArchivo}" th:text="${tipoDeArchivo}">
+                  </option>
+                </select>
+
+              </div>
+
+              <div class="mt-3">
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  id="envieArchivo"
+                  name="envieArchivo"
+                >
+                  Suba el archivo
+                </button>
+              </div>
+            </form>
+
+            <div
+              id="mensaje_error"
+              style="display: " th:attrappend="style=((${mensajeError} != null) ? 'block;' : 'none;')"
+              class="alert alert-danger text-left"
+              role="alert"
+              th:text="${mensajeError}"
+            >
+            </div>
+
+            <div
+              id="mensaje_exito"
+              style="display: " th:attrappend="style=((${mensajeExito} != null) ? 'block;' : 'none;')"
+              class="alert alert-success text-left"
+              role="alert"
+              th:text="${mensajeExito}"
+            >
+            </div>
           </div>
           <!-- contenedor_principal -->
 
@@ -183,46 +219,76 @@
     <script th:src="@{/v1/js/sb-admin.min.js}"></script>
     <script th:src="@{/v1/js/od-varios.min.js}"></script>
 
-    <script>
+    <script th:inline="javascript">
       $(document).ready(function() {
         $('[data-toggle="tooltip"]').tooltip();
 
-        // Escojo los elementos de tipo "a" que son de clase "item-menu".
-        $("a.item-menu").click(function() {
-          var esteObjeto = $(this);
-          var href = esteObjeto.attr('href');
-          var contenedor_principal = $("#contenedor_principal");
+        $("#archivoParaEnviar").on("change", function() {
+          let nombreArchivo = $(this).val().split("\\").pop();
+          $(this).siblings("#rotuloArchivoParaEnviar").addClass("selected").html(nombreArchivo);
+        });
 
-          jQuery.ajax({
-            "method":"GET",
-            "url":href,
-            error: function(jqXHR, textStatus, errorThrown) {
-              var mensajeError =
-                'Hubo un error al intentar traer la página de nombre "' + esteObjeto.children("span").first().html() + '".<br /><br />El mensaje del error es:';
+        $("#envieArchivo").click(function(evento) {
+          evento.preventDefault();
 
-              if(textStatus)
-                mensajeError += '<br/>' + textStatus;
+          $("#mensaje_error").hide();
+          $("#mensaje_exito").hide();
 
-              if(errorThrown)
-                mensajeError += '<br/>' + errorThrown;
+console.log("presionó el botón");
+          let formulario = new FormData($("#formulario")[0]);
 
-              if(jqXHR.hasOwnProperty("responseJSON")) {
-                if(jqXHR.responseJSON.hasOwnProperty("message"))
-                  mensajeError += '<br />' + jqXHR.responseJSON.message;
-                else {
+           $.ajax({
+              url: /*[[@{/v1/archivo/suba_archivo}]]*/,
+              type: 'post',
+              data: formulario,
+              contentType: false,
+              processData: false,
+              error: function(objetoXHR, cadenaEstado, cadenaErrorDisparador) {
+console.log("Error: " + cadenaEstado + "\n" + "Disparador: " + cadenaErrorDisparador);
+console.log(objetoXHR);
+                  $("#mensaje_error").html("Hubo un error: " + objetoXHR["responseJSON"]["message"]);
+                  $("#mensaje_error").show();
+              },
+              success: function(datos, cadenaEstado, objetoXHR) {
+console.log("Éxito: " + cadenaEstado + "\nDatos: " + datos);
+                if(datos.hasOwnProperty('error')) {
+                  let mensaje = "El servidor rechazó el archivo. La razón del rechazo es: ";
+
+                  let causaError = datos["error"];
+console.log("Causa del error: " + causaError);
+                  switch(causaError) {
+                    case 0: // ARCHIVO_VACIO
+                      mensaje += "El archivo está vacio.";
+                      break;
+                    case 1: // SESIÓN_NO_INICIADA
+                      mensaje += "No ha iniciado la sesión...";
+                      break;
+                    case 2: // NO_PUDE_PROCESAR_EL_ARCHIVO
+                      mensaje += "No pude procesar el archivo...";
+                      break;
+                    case 3: // FORMATO_DESCONOCIDO
+                      mensaje += "El formato indicado del archivo me es desconocido.";
+                      break;
+                    case 4: // TIPO_DESCONOCIDO
+                      mensaje += "El tipo de información indicada que ha de haber en el archivo me es desconocida.";
+                      break;
+                    case 5: // SESIÓN_INVÁLIDA
+                      mensaje += "La sesión es inválida...";
+                      break;
+                    case 6: // FALTA_ALGÚN_PARÁMETRO
+                      mensaje += "Falta algún parámetro...";
+                      break;
+                  }
+
+                  $("#mensaje_error").html(mensaje);
+                  $("#mensaje_error").show();
+                } else {
+console.log(datos);
+                  $("#mensaje_exito").html("El servidor procesó el archivo.");
+                  $("#mensaje_exito").show();
                 }
-              } else {
-              }
-
-              contenedor_principal.html(mensajeError).show();
-            },
-            success: function(data, textStatus, jqXHR) {
-              parseScript(data);
-              contenedor_principal.html(data).show();
-            }
-          });
-
-          return false;
+              },
+           });
         });
       });
     </script>
