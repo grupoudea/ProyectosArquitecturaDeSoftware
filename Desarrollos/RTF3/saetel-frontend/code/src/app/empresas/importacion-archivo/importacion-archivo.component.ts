@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import * as XLSX from 'xlsx';
+import { ClienteDto } from '../dto/cliente.dto';
 import { ColumnasPlantillaExcel } from '../dto/COLUMNAS_PLANTILLA.dto';
+import { TipoDocumentoDto } from '../dto/tipo-documento.dto';
+import { ClienteService } from '../service/cliente.service';
 
 @Component({
   selector: 'app-importacion-archivo',
@@ -17,8 +20,11 @@ export class ImportacionArchivoComponent implements OnInit {
   arrayBuffer: any;
   jsontext: any[]= [];
   disabledBtnGuardarArchivo = true;
+  tiposDocumentos: TipoDocumentoDto[] = [];
   
-  constructor() { }
+  constructor(
+    private readonly clienteService: ClienteService
+  ) { }
 
   ngOnInit(): void {
     this.items = [
@@ -26,6 +32,8 @@ export class ImportacionArchivoComponent implements OnInit {
       {label: 'Importar archivo', icon: 'pi pi-fw pi-upload', routerLink: ['../importar-archivo']},
     ];
     this.activeItem = this.items[0];
+
+    this.getTiposDocumentos();
   }
 
   public onUpload(event: {[x: string]: any[] }){
@@ -37,6 +45,28 @@ export class ImportacionArchivoComponent implements OnInit {
   }
 
   descargarPlantilla(){}
+
+  guardarClientes(clientes: ClienteDto[]) {
+    this.clienteService.crearClientes(clientes).subscribe(
+      data => {
+        if (data.body) {
+                   
+        }
+      }, error => {
+        console.log('Error'.concat(error));
+      });
+  }
+
+  getTiposDocumentos() {
+    this.clienteService.getTiposDocumentos().subscribe(
+      data => {
+        if (data.body) {
+          this.tiposDocumentos = data.body;
+        }
+      }, error => {
+        console.log('Error'.concat(error));
+      });
+  }
 
   public excelToJson(file: File){
     this.flag = false;
@@ -51,9 +81,7 @@ export class ImportacionArchivoComponent implements OnInit {
         var workbook = XLSX.read(bstr, {type:"binary"});
         var first_sheet_name = workbook.SheetNames[0];
         var worksheet = workbook.Sheets[first_sheet_name];
-        this.jsontext = XLSX.utils.sheet_to_json<string>(worksheet,{raw:true});     
-        console.log(this.jsontext);
-           
+        this.jsontext = XLSX.utils.sheet_to_json<string>(worksheet,{raw:true});                
         this.validarJson(this.jsontext);
     }
     fileReader.onloadend = (e) =>{
@@ -72,19 +100,13 @@ export class ImportacionArchivoComponent implements OnInit {
         if(!dato){
           this.disabledBtnGuardarArchivo = true;
           jsonValido = false;
-          console.log("El archivo no cumple con los requerimientos de la plantilla");
-          
-          // this.mensajeToast('error', `El archivo no cumple con los requerimientos de la plantilla`, false)
-          break;
+                    break;
         }
       }
       if(jsonValido){
         this.disabledBtnGuardarArchivo = false;
       }
     }else{
-      console.log("El archivo no tiene registros");
-      
-      // this.mensajeToast('error', `El archivo no tiene registros`, false)
       this.disabledBtnGuardarArchivo = true;
     }
   }
@@ -100,10 +122,39 @@ export class ImportacionArchivoComponent implements OnInit {
 
   construirClientes(){
     this.disabledBtnGuardarArchivo = true;
-    const clientes: any[] = [];
+    const clientes: ClienteDto[] = [];
     let huboError = false;
     for(let registro of this.jsontext){
       registro = this.limpiarEspacios(registro);
+
+      const numeroValido = this.validarNumeroDocumento(registro);
+      if(!numeroValido){
+        huboError = true;
+        break;
+      }
+      const tipoValido = this.validarTipoDocumento(registro);
+      if(!tipoValido){
+        huboError = true;
+        break;
+      }
+
+      const cliente = new ClienteDto();      
+        cliente.numeroDocumento = registro.NUMERO_DOCUMENTO,
+        cliente.idTipoDocumento = this.tiposDocumentos.find(item => item.descripcion===registro.TIPO_DOCUMENTO).id,
+        cliente.primerNombre = registro.PRIMER_NOMBRE,
+        cliente.segundoNombre = registro.SEGUNDO_NOMBRE,
+        cliente.primerApellido = registro.PRIMER_APELLIDO,
+        cliente.segundoApellido = registro.SEGUNDO_APELLIDO,
+        cliente.direccionResidencia = registro.DIRECCION_RESIDENCIA,
+        cliente.celularPrincipal = registro.CELULAR_PRINCIPAL,
+        cliente.celularSecundario = registro.CELULAR_SECUNDARIO,
+        cliente.telefonoFijo = registro.TELEFONO_FIJO
+      
+      clientes.push(cliente);
+    }
+
+    if(clientes.length>0 && !huboError){
+      this.guardarClientes(clientes);
     }
   }
 
@@ -119,15 +170,29 @@ export class ImportacionArchivoComponent implements OnInit {
     registroLimpio.CELULAR_PRINCIPAL = this.getTextoLimpio(registro.CELULAR_PRINCIPAL);
     registroLimpio.CELULAR_SECUNDARIO = this.getTextoLimpio(registro.CELULAR_SECUNDARIO);
     registroLimpio.TELEFONO_FIJO = this.getTextoLimpio(registro.TELEFONO_FIJO);
-    registroLimpio.NUMERO_CONTRATO = this.getTextoLimpio(registro.NUMERO_CONTRATO);
-    registroLimpio.DIRECCION_SERVICIO = this.getTextoLimpio(registro.DIRECCION_SERVICIO);
-    registroLimpio.FECHA_INICIO_CONTRATO = this.getTextoLimpio(registro.FECHA_INICIO_CONTRATO);
-    registroLimpio.FECHA_FIN_CONTRATO = this.getTextoLimpio(registro.FECHA_FIN_CONTRATO);
-    registroLimpio.ESTRATO = this.getTextoLimpio(registro.ESTRATO);
+    return registroLimpio
   }
 
   getTextoLimpio(valor: any){
     return valor?valor.toString().trim():null;
+  }
+
+  validarNumeroDocumento(registro: any){
+    if(!registro.NUMERO_DOCUMENTO){
+      return false;
+    }
+    if(registro.NUMERO_DOCUMENTO.length < 6){
+      return false;
+    }
+    return true;
+  }
+
+  validarTipoDocumento(registro: any){
+    const dato = this.tiposDocumentos.find(item => item.descripcion===registro.TIPO_DOCUMENTO);
+    if(!dato){
+      return false;
+    }    
+    return true;
   }
 
 }

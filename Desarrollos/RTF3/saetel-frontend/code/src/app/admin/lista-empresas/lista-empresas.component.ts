@@ -34,7 +34,6 @@ export class ListaEmpresasComponent implements OnInit {
       data => {
         if (data.body) {
           this.empresasInscritas = data.body;
-          console.log(this.empresasInscritas);
           
         }
       }, error => {
@@ -47,7 +46,6 @@ export class ListaEmpresasComponent implements OnInit {
       data => {
         if (data.body) {
           this.empresasNoInscritas = data.body;
-          console.log(this.empresasNoInscritas);
           
         }
       }, error => {
