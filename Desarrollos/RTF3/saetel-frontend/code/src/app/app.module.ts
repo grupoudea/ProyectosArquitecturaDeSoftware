@@ -15,6 +15,7 @@ import {TableModule} from 'primeng/table';
 import {FormsModule} from '@angular/forms';
 import {TabViewModule} from 'primeng/tabview';
 import {ChartModule} from 'primeng/chart';
+import {FileUploadModule} from 'primeng/fileupload';
 
 import { AdminComponent } from './admin/admin.component';
 import { ListaEmpresasComponent } from './admin/lista-empresas/lista-empresas.component';
@@ -54,7 +55,8 @@ export function createTranslateLoader(http: HttpClient) {
     FormsModule,
     NgbModule,
     TabViewModule,
-    ChartModule
+    ChartModule,
+    FileUploadModule
   ],
   providers: [],
   bootstrap: [AppComponent]
