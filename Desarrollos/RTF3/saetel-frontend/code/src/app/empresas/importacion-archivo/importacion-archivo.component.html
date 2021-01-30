@@ -1,0 +1,15 @@
+<p-tabMenu [model]="items"></p-tabMenu>
+<br><br>
+<div class="container">
+    <p-fileUpload #uploadExcel (name)="uploadExcel" 
+                (uploadHandler)="onUpload($event)" (onRemove)="onRemove($event)"
+                cancelLabel="Cancelar" customUpload="true" auto="true"
+                chooseLabel="Selecciona el archivo" accept=".xlsx"></p-fileUpload>
+
+    <br>
+    <button pButton pRipple label="Guardar" icon="pi pi-check" (click)="construirClientes()"></button>
+
+    <button pButton pRipple label="Descargar plantilla" icon="pi pi-download" download
+            (click)="descargarPlantilla()" style="margin-left: 5px;"></button>
+
+</div>
