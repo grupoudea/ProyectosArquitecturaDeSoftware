@@ -1,0 +1,296 @@
+<!DOCTYPE HTML>
+<html
+  lang="es"
+  xmlns:th="http://www.thymeleaf.org"
+>
+  <head>
+    <title>
+      Sistema Administrador de Información de las Empresas de Telecomunicaciones del País<br />
+      SAETEL
+    </title>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="Página principal de SAETEL." />
+    <meta name="author" content="Oscar Darío Botero Vargas" />
+
+    <!-- Custom fonts for this template-->
+    <link th:href="@{/fontawesome-free-5.9.0/css/all.min.css}" rel="stylesheet" type="text/css" />
+
+    <link th:href="@{/DataTables-1.10.20/datatables.min.css}" rel="stylesheet" />
+
+    <!-- Custom styles for this template-->
+    <link th:href="@{/v1/css/sb-admin.min.css}" rel="stylesheet" />
+  </head>
+
+  <body id="page-top">
+    <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
+
+      <a class="navbar-brand mr-1" href="/v1/principal">SAETEL</a>
+
+      <button
+        class="btn btn-link btn-sm text-white order-1 order-sm-0"
+        id="sidebarToggle"
+        href="#"
+      >
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <!-- Navbar Search -->
+      <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+        <div class="input-group">
+        </div>
+      </form>
+
+      <!-- Navbar -->
+      <ul class="navbar-nav ml-auto ml-md-0">
+        <li class="nav-item dropdown no-arrow">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            id="userDropdown"
+            role="button"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            <i class="fas fa-user-circle fa-fw"></i>
+          </a>
+          <div
+            class="dropdown-menu dropdown-menu-right"
+            aria-labelledby="userDropdown"
+          >
+            <a
+              class="dropdown-item"
+              href="#"
+              data-toggle="modal"
+              data-target="#logoutModal"
+            >
+              Salir
+            </a>
+          </div>
+        </li>
+      </ul>
+
+    </nav>
+
+    <div id="wrapper">
+      <div id="content-wrapper">
+        <div class="container-fluid">
+
+          <div id="contenedor_principal">
+            <form
+              method="POST"
+              enctype="multipart/form-data"
+              th:action="@{/v1/archivo/suba_archivo}"
+              id = "formulario"
+              name = "formulario"
+            >
+              <div class="custom-file mb-3">
+                <input
+                  type="file"
+                  class="custom-file-input"
+                  id="archivoParaEnviar"
+                  name="archivoParaEnviar"
+                />
+
+                <label
+                  id="rotuloArchivoParaEnviar"
+                  name="rotuloArchivoParaEnviar"
+                  class="custom-file-label"
+                  for="archivoParaEnviar"
+                >
+                  Elija el archivo...
+                </label>
+
+                <select class="form-select" id="formatoDeArchivo" name="formatoDeArchivo">
+                  <option selected>Formato del archivo</option>
+
+                  <option
+                    th:each="formatoDeArchivo : ${T(co.udea.saetelbackend.Dominio.DominioArchivo.FormatoDeArchivo).values()}"
+                    th:value="${formatoDeArchivo}" th:text="${formatoDeArchivo}">
+                  </option>
+                </select>
+
+                <select class="form-select" id="tipoDeArchivo" name="tipoDeArchivo">
+                  <option selected>Tipo de información en el archivo</option>
+
+                  <option
+                    th:each="tipoDeArchivo : ${T(co.udea.saetelbackend.Dominio.DominioArchivo.TipoDeArchivo).values()}"
+                    th:value="${tipoDeArchivo}" th:text="${tipoDeArchivo}">
+                  </option>
+                </select>
+
+              </div>
+
+              <div class="mt-3">
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  id="envieArchivo"
+                  name="envieArchivo"
+                >
+                  Suba el archivo
+                </button>
+              </div>
+            </form>
+
+            <div
+              id="mensaje_error"
+              style="display: " th:attrappend="style=((${mensajeError} != null) ? 'block;' : 'none;')"
+              class="alert alert-danger text-left"
+              role="alert"
+              th:text="${mensajeError}"
+            >
+            </div>
+
+            <div
+              id="mensaje_exito"
+              style="display: " th:attrappend="style=((${mensajeExito} != null) ? 'block;' : 'none;')"
+              class="alert alert-success text-left"
+              role="alert"
+              th:text="${mensajeExito}"
+            >
+            </div>
+          </div>
+          <!-- contenedor_principal -->
+
+        </div>
+        <!-- /.container-fluid -->
+
+        <!-- Sticky Footer -->
+        <footer class="sticky-footer">
+          <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+              <span>Derechos de autor © Oscar Darío Botero Vargas 2021</span>
+            </div>
+          </div>
+        </footer>
+
+      </div>
+      <!-- /.content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div
+        class="modal fade"
+        id="logoutModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">¿ Listo para salir ?</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Escoja "Salga" en la parte de abajo si está listo para terminar su sesión actual.
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancele</button>
+            <a class="btn btn-primary" th:href="@{/v1/finalice}">Salga</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Bootstrap core JavaScript-->
+    <script th:src="@{/jquery-3.4.1.min.js}"></script>
+    <script th:src="@{/bootstrap-4.3.1/js/bootstrap.bundle.min.js}"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script th:src="@{/jquery-easing-1.4.1/jquery.easing.min.js}"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script th:src="@{/v1/js/sb-admin.min.js}"></script>
+    <script th:src="@{/v1/js/od-varios.min.js}"></script>
+
+    <script th:inline="javascript">
+      $(document).ready(function() {
+        $('[data-toggle="tooltip"]').tooltip();
+
+        $("#archivoParaEnviar").on("change", function() {
+          let nombreArchivo = $(this).val().split("\\").pop();
+          $(this).siblings("#rotuloArchivoParaEnviar").addClass("selected").html(nombreArchivo);
+        });
+
+        $("#envieArchivo").click(function(evento) {
+          evento.preventDefault();
+
+          $("#mensaje_error").hide();
+          $("#mensaje_exito").hide();
+
+console.log("presionó el botón");
+          let formulario = new FormData($("#formulario")[0]);
+
+           $.ajax({
+              url: /*[[@{/v1/archivo/suba_archivo}]]*/,
+              type: 'post',
+              data: formulario,
+              contentType: false,
+              processData: false,
+              error: function(objetoXHR, cadenaEstado, cadenaErrorDisparador) {
+console.log("Error: " + cadenaEstado + "\n" + "Disparador: " + cadenaErrorDisparador);
+console.log(objetoXHR);
+                  $("#mensaje_error").html("Hubo un error: " + objetoXHR["responseJSON"]["message"]);
+                  $("#mensaje_error").show();
+              },
+              success: function(datos, cadenaEstado, objetoXHR) {
+console.log("Éxito: " + cadenaEstado + "\nDatos: " + datos);
+                if(datos.hasOwnProperty('error')) {
+                  let mensaje = "El servidor rechazó el archivo. La razón del rechazo es: ";
+
+                  let causaError = datos["error"];
+console.log("Causa del error: " + causaError);
+                  switch(causaError) {
+                    case 0: // ARCHIVO_VACIO
+                      mensaje += "El archivo está vacio.";
+                      break;
+                    case 1: // SESIÓN_NO_INICIADA
+                      mensaje += "No ha iniciado la sesión...";
+                      break;
+                    case 2: // NO_PUDE_PROCESAR_EL_ARCHIVO
+                      mensaje += "No pude procesar el archivo...";
+                      break;
+                    case 3: // FORMATO_DESCONOCIDO
+                      mensaje += "El formato indicado del archivo me es desconocido.";
+                      break;
+                    case 4: // TIPO_DESCONOCIDO
+                      mensaje += "El tipo de información indicada que ha de haber en el archivo me es desconocida.";
+                      break;
+                    case 5: // SESIÓN_INVÁLIDA
+                      mensaje += "La sesión es inválida...";
+                      break;
+                    case 6: // FALTA_ALGÚN_PARÁMETRO
+                      mensaje += "Falta algún parámetro...";
+                      break;
+                  }
+
+                  $("#mensaje_error").html(mensaje);
+                  $("#mensaje_error").show();
+                } else {
+console.log(datos);
+                  $("#mensaje_exito").html("El servidor procesó el archivo.");
+                  $("#mensaje_exito").show();
+                }
+              },
+           });
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -223,7 +223,7 @@ CREATE TABLE `periodo_carga_archivo` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE `sesión_spring` (
+CREATE TABLE `sesion_spring` (
   primary_id            CHAR(36) NOT NULL,
   session_id            CHAR(36) NOT NULL,
   creation_time         BIGINT   NOT NULL,
@@ -232,23 +232,23 @@ CREATE TABLE `sesión_spring` (
   expiry_time           BIGINT   NOT NULL,
   principal_name        VARCHAR(100),
 
-  CONSTRAINT `cp_sesión_spring` PRIMARY KEY (primary_id)
+  CONSTRAINT `cp_sesion_spring` PRIMARY KEY (primary_id)
 ) ENGINE=InnoDB ROW_FORMAT=DYNAMIC;
 
-CREATE UNIQUE INDEX `sesión_spring_ix1` ON `sesión_spring` (session_id);
-CREATE INDEX `sesión_spring_ix2` ON `sesión_spring` (expiry_time);
-CREATE INDEX `sesión_spring_ix3` ON `sesión_spring` (principal_name);
+CREATE UNIQUE INDEX `sesion_spring_ix1` ON `sesion_spring` (session_id);
+CREATE INDEX `sesion_spring_ix2` ON `sesion_spring` (expiry_time);
+CREATE INDEX `sesion_spring_ix3` ON `sesion_spring` (principal_name);
 
-CREATE TABLE `atributos_sesión_spring`  (
+CREATE TABLE `sesion_spring_ATTRIBUTES`  (
   session_primary_id CHAR(36)     NOT NULL,
   attribute_name     VARCHAR(200) NOT NULL,
   attribute_bytes    BLOB         NOT NULL,
 
   -- cp: Clave Primaria.
-  CONSTRAINT `cp_atributos_sesión_spring` PRIMARY KEY (session_primary_id, attribute_name),
+  CONSTRAINT `cp_sesion_spring_attributes` PRIMARY KEY (session_primary_id, attribute_name),
 
   -- ce: Clave Exterior.
-  CONSTRAINT `ce_atributos_sesión_spring` FOREIGN KEY (session_primary_id) REFERENCES `sesión_spring`(primary_id) ON DELETE CASCADE
+  CONSTRAINT `ce_sesion_spring_attributes` FOREIGN KEY (session_primary_id) REFERENCES `sesion_spring`(primary_id) ON DELETE CASCADE
 ) ENGINE=InnoDB ROW_FORMAT=DYNAMIC;
 
 --------------------------------------------------------------------------------
@@ -327,9 +327,6 @@ INSERT INTO `saetel-db`.inscripcion_empresa (id, id_empresa, fecha) VALUES(2, 2,
 INSERT INTO `saetel-db`.inscripcion_empresa (id, id_empresa, fecha) VALUES(3, 3, '2021-01-23');
 INSERT INTO `saetel-db`.inscripcion_empresa (id, id_empresa, fecha) VALUES(4, 4, '2021-01-23');
 INSERT INTO `saetel-db`.inscripcion_empresa (id, id_empresa, fecha) VALUES(5, 5, '2021-01-23');
-
--- Empresas
-INSERT INTO `saetel-db`.`empresa`(id, nit, nombre) VALUES(1, "123-4567890", "Prestadora de Servicios de Telecomunicaciones # 1");
 
 -- Usuarios
 INSERT INTO `saetel-db`.`usuario`(id, correo, usuario, clave, estado, id_rol, id_empresa)

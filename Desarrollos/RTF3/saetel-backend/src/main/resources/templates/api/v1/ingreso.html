@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html
+  lang="es"
+  xmlns:th="http://www.thymeleaf.org"
+>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Oscar Darío Botero Vargas">
+
+    <title>
+      Sistema Administrador de Información de las Empresas de Telecomunicaciones del País<br />
+      SAETEL<br />
+      Ingreso
+    </title>
+
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{/bootstrap-4.3.1/css/bootstrap.min.css}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link th:href="@{/v1/css/signin.css}" rel="stylesheet">
+  </head>
+
+  <body class="text-center">
+    <div class="form-signin">
+      <h1 class="h3 mb-3 font-weight-normal">
+        Sistema Administrador de Información de las Empresas de Telecomunicaciones del País<br />
+        SAETEL<br />
+        <br />
+        Por favor de sus credendiales
+      </h1>
+  
+      <label for="nombreUsuario" class="sr-only">Nombre de Usuario</label>
+      <input
+        type="text"
+        id="nombreUsuario"
+        class="form-control"
+        placeholder="Nombre de Usuario"
+        required=""
+        autofocus=""
+      />
+
+      <label for="claveUsuario" class="sr-only">Contraseña</label>
+      <input
+        type="password"
+        id="claveUsuario"
+        class="form-control"
+        placeholder="Contraseña"
+        required=""
+      />
+
+      <div
+        id="mensaje_error"
+        style="display: " th:attrappend="style=((${mensajeError} != null) ? 'block;' : 'none;')"
+        class="alert alert-danger text-left"
+        role="alert"
+        th:text="${mensajeError}"
+      >
+      </div>
+
+      <div class="checkbox mb-3">
+        <label>
+          <input type="checkbox" value="recuerdeme"> Recuerdeme
+        </label>
+      </div>
+
+      <button
+        class="btn btn-lg btn-primary btn-block"
+        type="submit"
+        id="envie"
+      >
+        Reg&iacute;streme
+      </button>
+    </div>
+
+    <script th:src="@{/jquery-3.4.1.min.js}"></script>
+    <script th:src="@{/v1/js/jquery.md5.min.js}"></script>
+
+    <script th:inline="javascript">
+      $(document).ready(function() {
+        $("#envie").click(function(event) {
+          jQuery.ajax({
+            "method":"GET",
+            "url": /*[[@{/v1/usuario/credenciales_son_validas}]]*/,
+            "data": {
+              "nombre": $("#nombreUsuario").val(),
+              "clave" : $.md5($("#claveUsuario").val())
+            },
+            error:function(jqXHR, textStatus, errorThrown) {
+              if(jqXHR.hasOwnProperty("responseJSON")) {
+                if(jqXHR.responseJSON.hasOwnProperty("message"))
+                  $("#mensaje_error").html("Hubo un error al intentar enviar los datos.<br/>El mensaje del error es:<br/>" + jqXHR.responseJSON.message);
+                else
+                  $("#mensaje_error").html("Hubo un error al intentar enviar los datos.");
+              } else
+                $("#mensaje_error").html("Hubo un error al intentar enviar los datos.");
+
+              $("#mensaje_error").show();
+            },
+            success:function(data, textStatus, jqXHR) {
+              if(data == false) {
+                $("#mensaje_error").html("El usuario no está registrado.<br>... o la clave no corresponde a la dada.");
+                $("#mensaje_error").show();
+              } else
+                window.location.href = /*[[@{/v1/principal/}]]*/;
+            }
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

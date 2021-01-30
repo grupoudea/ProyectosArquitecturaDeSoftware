@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+>
+  <head>
+    <title>
+      Sistema Administrador de Información de las Empresas de Telecomunicaciones del País<br />
+      SAETEL
+    </title>
+    <style>
+      table td{
+        vertical-align:top;
+        border:solid 1px #888;
+        padding:10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>
+      Sistema Administrador de Información de las Empresas de Telecomunicaciones del País<br />
+      SAETEL
+    </h1>
+
+    <table>
+      <tr>
+        <td>Fecha</td>
+        <td th:text="${timestamp}"/>
+      </tr>
+      <tr>
+        <td>Ruta</td>
+        <td th:text="${path}"/>
+      </tr>
+      <tr>
+        <td>Error</td>
+        <td th:text="${error}"/>
+      </tr>
+      <tr>
+        <td>Estado</td>
+        <td th:text="${status}"/>
+      </tr>
+      <tr>
+        <td>Mensaje</td>
+        <td th:text="${message}"/>
+      </tr>
+      <tr>
+        <td>Excepción</td>
+        <td th:text="${exception}"/>
+      </tr>
+      <tr>
+        <td>Estela</td>
+        <td>
+          <pre th:text="${trace}"/>
+        </td>
+      </tr>
+  </table>
+  </body>
+</html>
